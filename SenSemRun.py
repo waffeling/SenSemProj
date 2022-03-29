@@ -261,7 +261,7 @@ Totalx = 1000
 definition = 0.15
 speed = 0.02
 E = 4
-Vnaught = 5
+Vnaught = 6
 Transmlist = []
 Space = zeros(Totalx)
 RealPsi = zeros(Totalx)
@@ -309,7 +309,7 @@ while E < Vnaught:
     print(Transmlist)
 
     
-    E += 0.2
+    E += 0.1
     
     
 

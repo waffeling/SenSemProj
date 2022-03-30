@@ -259,7 +259,7 @@ fig.canvas.mpl_connect('button_press_event', onClick)
 Totalx = 1000
 definition = 0.15
 speed = 0.02
-E = 2
+E = 5.9
 Vnaught = 6
 Transmlist = []
 Elist = []

@@ -303,7 +303,7 @@ while E < Vnaught:
     fastfwd = 4
     anim = animation.FuncAnimation(
     fig, animate, init_func = init, interval=1, frames=int(Totalt/fastfwd), blit=True, repeat = True)
-    f = r"home/pi/Documents/Eis" + str(E) + "Vis" + str(Vnaught) + ".mp4"
+    f = r"/home/pi/Documents/Eis" + str(E) + "Vis" + str(Vnaught) + ".mp4"
     writervideo = animation.FFMpegWriter(fps=60)
     anim.save(f, writer=writervideo)
     print(Transmlist)
@@ -317,7 +317,7 @@ Eliststr = str(Elist)
 Transmliststr = str(Transmlist)
 finaldata = Eliststr + "\n" + Transmliststr
 
-finalfile = open(r"home/pi/Documents/FinalData.txt", "w")
+finalfile = open(r"/home/pi/Documents/FinalData.txt", "w")
 finalfile.write(finaldata)
 finalfile.close()
 

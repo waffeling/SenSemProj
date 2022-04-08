@@ -29,7 +29,7 @@ speed = 0.02
 
 
 #These *should hopefully* be in eV, but coefficients need to be checked to make sure
-E = 4
+E = 0.5
 Vnaught = 5
 
 
@@ -274,7 +274,7 @@ V = zeros(Totalx)
 transmitted = 0
 
 
-while E < Vnaught:
+while E < 15:
     Primes = unitcalculator(speed, definition, E, Vnaught)
     meterprime = Primes[0]
     secondprime = Primes[1]
@@ -314,7 +314,7 @@ while E < Vnaught:
     print(Transmlist)
     
     Elist.append(E)
-    E += 0.5
+    E += 1.0
 
 
 anim.event_source.stop()

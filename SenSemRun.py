@@ -5,7 +5,7 @@
 
 
 
-%matplotlib notebook
+
 import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 from numpy import zeros, sqrt, sin, cos, pi, exp, cosh, sinh, format_float_scientific

@@ -5,6 +5,7 @@
 
 
 
+%matplotlib notebook
 import matplotlib.animation as animation
 import matplotlib.pyplot as plt
 from numpy import zeros, sqrt, sin, cos, pi, exp, cosh, sinh, format_float_scientific
@@ -122,8 +123,7 @@ def animate(j):
     global fastfwd
     global pause
     global Transmlist
-    
-    
+    global transmitted
     
     fastfwd = 4
      #allows the animation to be sped up for better viewing. Must be kept an EVEN INTEGER to allow leapfrogging
@@ -207,35 +207,38 @@ def animate(j):
                 if i<blockbeg or i>blockend:  
                     total += Psi[i]
             k+=1
-        
+   
 
-        Transm = transmitted/sum(Psi)
-        Transmlist.append(Transm)
-
-        Refl = reflected/sum(Psi)
-      
-
-
-    if j >= (Totalt/fastfwd)-2: 
-        transmitted = 0
+    
+    if j >= (2*int(wavespinsim/delt)/fastfwd)-2 and not pause: 
+        temptransmitted = 0
         reflected = 0
         total = 0
         for i in range(Totalx):
             if i<blockbeg:
                 reflected += Psi[i]
-
             if i>blockend:
                 transmitted += Psi[i]
             if i<blockbeg or i>blockend:  
                 total += Psi[i]
         
-
-
-        Transm = transmitted/sum(Psi)
-        Transmlist.append(Transm)
         Refl = reflected/sum(Psi)
-        time_text.set_text(time_template % (Transm))
-        time_text1.set_text(time_template1 % (Refl))      
+        Transm = transmitted/sum(Psi)
+        
+        if transmitted < temptransmitted:
+            transmitted = temptransmitted
+            
+            
+        elif transmitted > temptransmitted:
+            Transmlist.append(Transm)
+            pause=True
+            time_text.set_text(time_template % (Transm))
+            time_text1.set_text(time_template1 % (Refl))
+            
+        
+
+        
+              
 
     
     
@@ -259,8 +262,8 @@ fig.canvas.mpl_connect('button_press_event', onClick)
 Totalx = 1000
 definition = 0.15
 speed = 0.02
-E = 2
-Vnaught = 6
+E = 4
+Vnaught = 5
 Transmlist = []
 Elist = []
 Space = zeros(Totalx)
@@ -268,6 +271,7 @@ RealPsi = zeros(Totalx)
 ImPsi = zeros(Totalx)
 Psi = zeros(Totalx)
 V = zeros(Totalx)
+transmitted = 0
 
 
 while E < Vnaught:
@@ -285,7 +289,7 @@ while E < Vnaught:
     blockend = 650
     wavespinsim = (blockend-start+extradis)*delx/k0
     #This is the total number of DISCRETE steps allowed in t 
-    Totalt = 2*int(wavespinsim/delt)
+    Totalt = 3*int(wavespinsim/delt)
 
     for i in range(Totalx):
         Space[i] = i
@@ -298,27 +302,27 @@ while E < Vnaught:
         ln1.set_data(Space, Psi)
         ln2.set_data(Space, V)
         return ln1, ln2, 
-    
-    
+
+    pause = False
     fastfwd = 4
+
     anim = animation.FuncAnimation(
-    fig, animate, init_func = init, interval=1, frames=int(Totalt/fastfwd), blit=True, repeat = True)
-    f = r"/home/pi/Documents/Eis" + str(E) + "Vis" + str(Vnaught) + ".mp4"
+        fig, animate, init_func = init, interval=1, frames=int(Totalt/fastfwd), blit=True, repeat = True)
+    f = r"/home/pi/Desktop/Eis" + str(E) + "Vis" + str(Vnaught) + ".mp4"
     writervideo = animation.FFMpegWriter(fps=60)
     anim.save(f, writer=writervideo)
     print(Transmlist)
+    
     Elist.append(E)
+    E += 0.5
 
-    
-    E += 0.1
 
-    
-Eliststr = str(Elist)
-Transmliststr = str(Transmlist)
-finaldata = Eliststr + "\n" + Transmliststr
+anim.event_source.stop()
 
-finalfile = open(r"/home/pi/Documents/FinalData.txt", "w")
-finalfile.write(finaldata)
-finalfile.close()
+
+fig1 = plt.figure()
+
+plt.plot(Elist, Transmlist, "b-")
+plt.savefig(r'/home/pi/Desktop/Transmission_Coefficient_Plot.pdf')
 
 

@@ -290,7 +290,7 @@ print(svdir)
 remove(svdir)
 print(svdir)
 
-
+glob.glob(svdir)
 
 
 while E < Eend:

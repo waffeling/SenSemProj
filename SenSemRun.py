@@ -288,10 +288,9 @@ svdir = r'home/pi/Desktop/SenProjRuns/'+str(datetime.date.today())
 print(svdir)
 remove(svdir)
 print(svdir)
-try:
+if os.path.exists(svdir) == False:
     os.mkdir(svdir)
-except:
-    print(os.path.exists(svdir))
+
 
 while E < Eend:
     Primes = unitcalculator(speed, definition, E, Vnaught)

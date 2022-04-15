@@ -284,7 +284,7 @@ V = zeros(Totalx)
 transmitted = 0
 
 
-svdir = r'/home/pi/Desktop/SenProjRuns/'+str(datetime.date.today())
+svdir = r'home/pi/Desktop/SenProjRuns/'+str(datetime.date.today())
 print(svdir)
 remove(svdir)
 print(svdir)

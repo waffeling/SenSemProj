@@ -8,6 +8,7 @@
 
 ##FOR E<VNAUGHT
 
+import glob
 import os
 import datetime
 import matplotlib.animation as animation
@@ -270,8 +271,8 @@ fig.canvas.mpl_connect('button_press_event', onClick)
 Totalx = 1000
 definition = 0.15
 speed = 0.02
-E = 0.5
-Eend = 25
+E = 4
+Eend = 6
 Vnaught = 5
 Transmlist = []
 Elist = []
@@ -289,8 +290,7 @@ print(svdir)
 remove(svdir)
 print(svdir)
 
-if os.path.exists(svdir) == False:
-    os.makedirs(svdir)
+glob.glob(svdir)
 
 
 while E < Eend:

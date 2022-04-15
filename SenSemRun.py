@@ -288,8 +288,9 @@ svdir = r'home/pi/Desktop/SenProjRuns/'+str(datetime.date.today())
 print(svdir)
 remove(svdir)
 print(svdir)
+
 if os.path.exists(svdir) == False:
-    os.mkdir(svdir)
+    os.makedirs(svdir)
 
 
 while E < Eend:

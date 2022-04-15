@@ -271,8 +271,8 @@ fig.canvas.mpl_connect('button_press_event', onClick)
 Totalx = 1000
 definition = 0.15
 speed = 0.02
-E = 4
-Eend = 6
+E = 0.5
+Eend = 25
 Vnaught = 5
 Transmlist = []
 Elist = []
@@ -285,7 +285,7 @@ V = zeros(Totalx)
 transmitted = 0
 
 
-svdir = str(datetime.date.today())
+svdir = str(datetime.date.today()) + r"*"
 print(svdir)
 remove(svdir)
 print(svdir)
@@ -337,7 +337,7 @@ while E < Eend:
 
     
 TrueData = zeros(100)
-TestEs = linspace(0, 15, 100)
+TestEs = linspace(0, Eend, 100)
 
 u = 0
 

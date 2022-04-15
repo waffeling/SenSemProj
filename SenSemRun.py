@@ -285,12 +285,13 @@ V = zeros(Totalx)
 transmitted = 0
 
 
-svdir = r"../../Desktop/" + str(datetime.date.today()) + r"*"
+svdir = r"/home/pi/Desktop/" + str(datetime.date.today()) + r"*"
 print(svdir)
 remove(svdir)
 print(svdir)
 
-glob.glob(svdir)
+if os.path.exists(svdir) == False:
+    os.makedirs(svdir)
 
 
 while E < Eend:

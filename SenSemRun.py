@@ -6,14 +6,22 @@
 
 
 
+##FOR E<VNAUGHT
+
+import os
+import datetime
 import matplotlib.animation as animation
 import matplotlib.pyplot as plt
-from numpy import zeros, sqrt, sin, cos, pi, exp, cosh, sinh, format_float_scientific
+from numpy import zeros, sqrt, sin, cos, pi, exp, cosh, sinh, format_float_scientific, linspace
 from pylab import plot, legend
 from matplotlib import rc
 from IPython.display import HTML
 ##Trying again
 
+
+def remove(String):
+    String.replace(" ", "_")
+    
 #This is the total number of DISCRETE steps allowed in x 
 Totalx = 1000
 
@@ -29,7 +37,7 @@ speed = 0.02
 
 
 #These *should hopefully* be in eV, but coefficients need to be checked to make sure
-E = 0.5
+E = 4.5
 Vnaught = 5
 
 
@@ -263,9 +271,11 @@ Totalx = 1000
 definition = 0.15
 speed = 0.02
 E = 0.5
+Eend = 25
 Vnaught = 5
 Transmlist = []
 Elist = []
+Estep = 1
 Space = zeros(Totalx)
 RealPsi = zeros(Totalx)
 ImPsi = zeros(Totalx)
@@ -274,7 +284,16 @@ V = zeros(Totalx)
 transmitted = 0
 
 
-while E < 15:
+svdir = r'home/pi/Desktop/SenProjRuns/'+str(datetime.date.today())
+print(svdir)
+remove(svdir)
+print(svdir)
+try:
+    os.mkdir(svdir)
+except:
+    print(os.path.exists(svdir))
+
+while E < Eend:
     Primes = unitcalculator(speed, definition, E, Vnaught)
     meterprime = Primes[0]
     secondprime = Primes[1]
@@ -308,21 +327,34 @@ while E < 15:
 
     anim = animation.FuncAnimation(
         fig, animate, init_func = init, interval=1, frames=int(Totalt/fastfwd), blit=True, repeat = True)
-    f = r"/home/pi/Desktop/Eis" + str(E) + "Vis" + str(Vnaught) + ".mp4"
+    f = svdir + r"/Eis" + str(E) + "Vis" + str(Vnaught) + ".mp4"
     writervideo = animation.FFMpegWriter(fps=60)
     anim.save(f, writer=writervideo)
     print(Transmlist)
     
     Elist.append(E)
-    E += 1.0
+    E += Estep
 
+    
+TrueData = zeros(100)
+TestEs = linspace(0, 15, 100)
 
+u = 0
+
+for i in TestEs:
+    if i < Vnaught:
+        TrueData[u] = (1/(1+(0.25*((Vnaught**2)/i*(Vnaught-i))*sinh(sqrt(2*(Vnaught-i)))**2)))
+        u += 1
+    elif i > Vnaught:
+        TrueData[u] = (1/(1+(0.25*((Vnaught**2)/i*(i-Vnaught))*sin(sqrt(2*(i-Vnaught)))**2)))
+        u += 1
+    
+print(TrueData)
+        
 anim.event_source.stop()
 
-
 fig1 = plt.figure()
-
+print(Elist)
 plt.plot(Elist, Transmlist, "b-")
-plt.savefig(r'/home/pi/Desktop/Transmission_Coefficient_Plot.pdf')
-
-
+plt.plot(TestEs, TrueData, "r-")
+plt.savefig(svdir + r'/Transmission_Coefficient_Plot.pdf')

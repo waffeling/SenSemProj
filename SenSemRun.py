@@ -285,7 +285,7 @@ V = zeros(Totalx)
 transmitted = 0
 
 
-svdir = str(datetime.date.today()) + r"*"
+svdir = r"../../Desktop/" + str(datetime.date.today()) + r"*"
 print(svdir)
 remove(svdir)
 print(svdir)

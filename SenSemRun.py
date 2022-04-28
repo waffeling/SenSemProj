@@ -283,7 +283,7 @@ ImPsi = zeros(Totalx)
 Psi = zeros(Totalx)
 V = zeros(Totalx)
 transmitted = 0
-A = ((2/pi)**(1/4))*sqrt(1/(sigma*delx))
+A = ((2/pi)**(1/4))*sqrt(1/(sigma*definition))
 
 svdir = r"/home/pi/Desktop/" + str(datetime.date.today()) + r"*"
 print(svdir)

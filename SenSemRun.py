@@ -34,20 +34,20 @@ Totalx = 1000
 #   It's called speed as it should be adjusted to control the speed of the wave packet, and will also be the final
 #value to adjust if the program continuously blows up (slower=better, sometimes)
 definition = 0.15
-speed = 0.02
+speed = 0.01
 
 
 #These *should hopefully* be in eV, but coefficients need to be checked to make sure
-E = 4.5
-Vnaught = 5
+E = 1
+Vnaught = 25
 
 
 
      
 
 #Setting up our initial data and space
-sigma = 20 #Wavepacket size
-start = 200 #Wavepacket starting placement
+sigma = 100*definition #Wavepacket size
+start = 3000*definition #Wavepacket starting placement
 eVmul = 0 #Ignore this
 pause = False #Ignore this
 
@@ -134,7 +134,7 @@ def animate(j):
     global Transmlist
     global transmitted
     
-    fastfwd = 4
+    fastfwd = 10
      #allows the animation to be sped up for better viewing. Must be kept an EVEN INTEGER to allow leapfrogging
     if not pause: # allows pausing of the animation at any point for Transmition coefficicent calculation
         if fastfwd == 1:
@@ -167,7 +167,7 @@ def animate(j):
 
             #putting together Psi^2
             for i in range(Totalx):
-                Psi[i] = sqrt(RealPsi[i]**2 + ImPsi[i]**2)
+                Psi[i] = RealPsi[i]**2 + ImPsi[i]**2
 
 
         elif fastfwd > 1:
@@ -200,7 +200,7 @@ def animate(j):
 
                     #putting together Psi^2
                     for i in range(Totalx):
-                        Psi[i] = sqrt(RealPsi[i]**2 + ImPsi[i]**2)
+                        Psi[i] = RealPsi[i]**2 + ImPsi[i]**2
 
     else: 
         transmitted = 0
@@ -210,11 +210,11 @@ def animate(j):
             
             for i in range(Totalx):
                 if i<blockbeg:
-                    reflected += Psi[i]
+                    reflected += Psi[i]*delx
                 if i>blockend:
-                    transmitted += Psi[i]
+                    transmitted += Psi[i]*delx
                 if i<blockbeg or i>blockend:  
-                    total += Psi[i]
+                    total += Psi[i]*delx
             k+=1
    
 
@@ -225,14 +225,14 @@ def animate(j):
         total = 0
         for i in range(Totalx):
             if i<blockbeg:
-                reflected += Psi[i]
+                reflected += Psi[i]*delx
             if i>blockend:
-                transmitted += Psi[i]
+                transmitted += Psi[i]*delx
             if i<blockbeg or i>blockend:  
-                total += Psi[i]
+                total += Psi[i]*delx
         
-        Refl = reflected/sum(Psi)
-        Transm = transmitted/sum(Psi)
+        Refl = reflected
+        Transm = transmitted
         
         if transmitted < temptransmitted:
             transmitted = temptransmitted
@@ -270,10 +270,10 @@ fig.canvas.mpl_connect('button_press_event', onClick)
 #I know this bottom step makes the use of a function redundant, but it helps my brain organize the code
 Totalx = 1000
 definition = 0.15
-speed = 0.02
-E = 0.5
+speed = 0.01
+E = 1
 Eend = 25
-Vnaught = 5
+Vnaught = 10
 Transmlist = []
 Elist = []
 Estep = 1
@@ -283,7 +283,7 @@ ImPsi = zeros(Totalx)
 Psi = zeros(Totalx)
 V = zeros(Totalx)
 transmitted = 0
-
+A = ((2/pi)**(1/4))*sqrt(1/(sigma*delx))
 
 svdir = r"/home/pi/Desktop/" + str(datetime.date.today()) + r"*"
 print(svdir)
@@ -306,7 +306,7 @@ while E < Eend:
 
     extradis = 400
     blockbeg = 600
-    blockend = 650
+    blockend = blockbeg + (int(1/definition))
     wavespinsim = (blockend-start+extradis)*delx/k0
     #This is the total number of DISCRETE steps allowed in t 
     Totalt = 3*int(wavespinsim/delt)
@@ -324,7 +324,7 @@ while E < Eend:
         return ln1, ln2, 
 
     pause = False
-    fastfwd = 4
+    fastfwd = 10
 
     anim = animation.FuncAnimation(
         fig, animate, init_func = init, interval=1, frames=int(Totalt/fastfwd), blit=True, repeat = True)

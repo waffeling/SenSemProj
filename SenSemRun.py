@@ -285,7 +285,7 @@ V = zeros(Totalx)
 transmitted = 0
 A = ((2/pi)**(1/4))*sqrt(1/(sigma*definition))
 
-svdir = r"/home/pi/Desktop/" + str(datetime.date.today()) + r"*"
+svdir = r"/home/pi/Desktop/" + str(datetime.date.today())
 print(svdir)
 remove(svdir)
 print(svdir)
@@ -313,8 +313,8 @@ while E < Eend:
 
     for i in range(Totalx):
         Space[i] = i
-        RealPsi[i] = cos(k0*i*delx) * exp(-(i-start)**2/sigma**2) #turns out k0 must be multiplied by whatever delx you're using 
-        ImPsi[i] = sin(k0*i*delx) * exp(-(i-start)**2/sigma**2)
+        RealPsi[i] = A*cos(k0*i*delx) * exp(-(i-start)**2/sigma**2) #turns out k0 must be multiplied by whatever delx you're using 
+        ImPsi[i] = A*sin(k0*i*delx) * exp(-(i-start)**2/sigma**2)
         if i>= blockbeg and i<= blockend:
             V[i] = Vnaught
 
@@ -353,9 +353,10 @@ for i in TestEs:
 print(TrueData)
         
 anim.event_source.stop()
-
+Elist = Elist/Vnaught
+TestEs = TestEs/Vnaught
 fig1 = plt.figure()
 print(Elist)
 plt.plot(Elist, Transmlist, "b-")
 plt.plot(TestEs, TrueData, "r-")
-plt.savefig(svdir + r'/Transmission_Coefficient_Plot.pdf')
+plt.savefig(svdir + r'/Transmission_Coefficient_Plot(EoverV).pdf')

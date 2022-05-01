@@ -353,8 +353,7 @@ for i in TestEs:
 print(TrueData)
         
 anim.event_source.stop()
-Elist = Elist/Vnaught
-TestEs = TestEs/Vnaught
+
 fig1 = plt.figure()
 print(Elist)
 plt.plot(Elist, Transmlist, "b-")

@@ -358,6 +358,10 @@ u=0
 
 for i in TestEscp:
     TestEs[u]=TestEscp[u]/Vnaught
+    u+=1
+    
+u=0
+for i in Elist:
     Elist[u]=Elistcp[u]/Vnaught
     u+=1
     

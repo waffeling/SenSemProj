@@ -344,10 +344,10 @@ u = 0
 
 for i in TestEs:
     if i < Vnaught:
-        TrueData[u] = (1/(1+(0.25*((Vnaught**2)/i*(Vnaught-i))*sinh(sqrt(2*(Vnaught-i)))**2)))
+        TrueData[u] = (1/(1+((Vnaught**2)/(4*i*(Vnaught-i)))*sinh(sqrt(2*(Vnaught-i)))**2))
         u += 1
     elif i > Vnaught:
-        TrueData[u] = (1/(1+(0.25*((Vnaught**2)/i*(i-Vnaught))*sin(sqrt(2*(i-Vnaught)))**2)))
+        TrueData[u] = (1/(1+((Vnaught**2)/(4*i*(i-Vnaught)))*sin(sqrt(2*(i-Vnaught)))**2))
         u += 1
     
 print(TrueData)

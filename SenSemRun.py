@@ -351,7 +351,16 @@ for i in TestEs:
         u += 1
     
 print(TrueData)
-        
+
+TestEscp = TestEs.copy()
+Elistcp = Elist.copy()
+u=0
+
+for i in TestEscp:
+    TestEs[u]=TestEscp[u]/Vnaught
+    Elist[u]=Elistcp[u]/Vnaught
+    u+=1
+    
 anim.event_source.stop()
 
 fig1 = plt.figure()

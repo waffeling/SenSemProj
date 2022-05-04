@@ -37,9 +37,7 @@ definition = 0.15
 speed = 0.01
 
 
-#These *should hopefully* be in eV, but coefficients need to be checked to make sure
-E = 1
-Vnaught = 25
+
 
 
 
@@ -272,11 +270,11 @@ Totalx = 1000
 definition = 0.15
 speed = 0.01
 E = 1
-Eend = 25
-Vnaught = 10
+Eend = 50
+Vnaught = 24.5
 Transmlist = []
 Elist = []
-Estep = 1
+Estep = 2
 Space = zeros(Totalx)
 RealPsi = zeros(Totalx)
 ImPsi = zeros(Totalx)

@@ -282,6 +282,8 @@ Psi = zeros(Totalx)
 V = zeros(Totalx)
 transmitted = 0
 A = ((2/pi)**(1/4))*sqrt(1/(sigma*definition))
+barrierlength = 2
+a = barrierlength*(int(1/definition))
 
 svdir = r"/home/pi/Desktop/" + str(datetime.date.today())
 print(svdir)
@@ -304,7 +306,7 @@ while E < Eend:
 
     extradis = 400
     blockbeg = 600
-    blockend = blockbeg + (int(1/definition))
+    blockend = blockbeg + a 
     wavespinsim = (blockend-start+extradis)*delx/k0
     #This is the total number of DISCRETE steps allowed in t 
     Totalt = 3*int(wavespinsim/delt)
@@ -342,10 +344,10 @@ u = 0
 
 for i in TestEs:
     if i < Vnaught:
-        TrueData[u] = (1/(1+((Vnaught**2)/(4*i*(Vnaught-i)))*sinh(sqrt(2*(Vnaught-i)))**2))
+        TrueData[u] = (1/(1+((Vnaught**2)/(4*i*(Vnaught-i)))*sinh(sqrt(2*(Vnaught-i))*barrierlength)**2))
         u += 1
     elif i > Vnaught:
-        TrueData[u] = (1/(1+((Vnaught**2)/(4*i*(i-Vnaught)))*sin(sqrt(2*(i-Vnaught)))**2))
+        TrueData[u] = (1/(1+((Vnaught**2)/(4*i*(i-Vnaught)))*sin(sqrt(2*(i-Vnaught))*barrierlength)**2))
         u += 1
     
 print(TrueData)

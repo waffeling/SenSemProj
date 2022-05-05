@@ -97,7 +97,7 @@ def unitcalculator(speed, definition, E, Vnaught):
 
 #Setting up animation
 fig = plt.figure()
-ax = plt.axes(xlim=(0, Totalx-1), ylim=(-2, 2))
+ax = plt.axes(xlim=(0, Totalx-1), ylim=(0, 0.5))
 ln1, = ax.plot([], [], lw=1)
 ln2, = ax.plot([], [], lw=1, color='g')
 
@@ -267,8 +267,8 @@ fig.canvas.mpl_connect('button_press_event', onClick)
 
 #I know this bottom step makes the use of a function redundant, but it helps my brain organize the code
 Totalx = 1000
-definition = 0.15
-speed = 0.01
+definition = 1
+speed = 0.5
 E = 0.1
 Eend = 2
 Vnaught = 0.5

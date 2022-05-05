@@ -270,11 +270,11 @@ Totalx = 1000
 definition = 0.15
 speed = 0.01
 E = 1
-Eend = 50
-Vnaught = 24.5
+Eend = 20
+Vnaught = 6.125
 Transmlist = []
 Elist = []
-Estep = 2
+Estep = 1
 Space = zeros(Totalx)
 RealPsi = zeros(Totalx)
 ImPsi = zeros(Totalx)
@@ -369,6 +369,10 @@ anim.event_source.stop()
 
 fig1 = plt.figure()
 print(Elist)
-plt.plot(Elist, Transmlist, "b-")
-plt.plot(TestEs, TrueData, "r-")
+plt.plot(Elist, Transmlist, "b-", label="Simulated Data")
+plt.plot(TestEs, TrueData, "r-", label="Analytical Solution")
+plt.xlabel("E/V0")
+plt.ylabel("T")
+plt.legend(loc="upper left")
+plt.title("Transmission Coefficient VS E/V0")
 plt.savefig(svdir + r'/Transmission_Coefficient_PlotEoverV.pdf')

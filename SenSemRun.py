@@ -44,7 +44,7 @@ speed = 0.5
      
 
 #Setting up our initial data and space
-sigma = 15 #Wavepacket size
+sigma = 15*definition #Wavepacket size
 start = 300 #Wavepacket starting placement
 eVmul = 0 #Ignore this
 pause = False #Ignore this
@@ -281,7 +281,7 @@ ImPsi = zeros(Totalx)
 Psi = zeros(Totalx)
 V = zeros(Totalx)
 transmitted = 0
-A = ((2/pi)**(1/4))*sqrt(1/(sigma))
+A = ((2/pi)**(1/4))*sqrt(1/(sigma*definition))
 barrierlength = 1
 a = barrierlength*(int(1/definition))
 
@@ -313,8 +313,8 @@ while E < Eend:
 
     for i in range(Totalx):
         Space[i] = i
-        RealPsi[i] = A*cos(k0*i*delx) * exp(-(i-start)**2/sigma**2) #turns out k0 must be multiplied by whatever delx you're using 
-        ImPsi[i] = A*sin(k0*i*delx) * exp(-(i-start)**2/sigma**2)
+        RealPsi[i] = A*cos(k0*i*delx) * exp(-(i-start)**2/(sigma/definition)**2) #turns out k0 must be multiplied by whatever delx you're using 
+        ImPsi[i] = A*sin(k0*i*delx) * exp(-(i-start)**2/(sigma)/definition**2)
         if i>= blockbeg and i<= blockend:
             V[i] = Vnaught
 

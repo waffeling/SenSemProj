@@ -33,8 +33,8 @@ Totalx = 1000
 # Speed controls the size of an individual delt...
 #   It's called speed as it should be adjusted to control the speed of the wave packet, and will also be the final
 #value to adjust if the program continuously blows up (slower=better, sometimes)
-definition = 1
-speed = 0.5
+definition = 0.1
+speed = 0.005
 
 
 
@@ -44,8 +44,8 @@ speed = 0.5
      
 
 #Setting up our initial data and space
-sigma = 15*definition #Wavepacket size
-start = 300 #Wavepacket starting placement
+sigma = 300*definition #Wavepacket size
+start = 3000*definition #Wavepacket starting placement
 eVmul = 0 #Ignore this
 pause = False #Ignore this
 
@@ -267,14 +267,14 @@ fig.canvas.mpl_connect('button_press_event', onClick)
 
 #I know this bottom step makes the use of a function redundant, but it helps my brain organize the code
 Totalx = 1000
-definition = 1
-speed = 0.5
-E = 0.1
-Eend = 2
-Vnaught = 0.5
+definition = 0.1
+speed = 0.005
+E = 0.2
+Eend = 6
+Vnaught = 2
 Transmlist = []
 Elist = []
-Estep = 0.1
+Estep = 0.2
 Space = zeros(Totalx)
 RealPsi = zeros(Totalx)
 ImPsi = zeros(Totalx)
@@ -282,7 +282,7 @@ Psi = zeros(Totalx)
 V = zeros(Totalx)
 transmitted = 0
 A = ((2/pi)**(1/4))*sqrt(1/(sigma*definition))
-barrierlength = 1
+barrierlength = 3.5
 a = barrierlength*(int(1/definition))
 
 svdir = r"/home/pi/Desktop/" + str(datetime.date.today())
@@ -374,5 +374,5 @@ plt.plot(TestEs, TrueData, "r-", label="Analytical Solution")
 plt.xlabel("E/V0")
 plt.ylabel("T")
 plt.legend(loc="upper left")
-plt.title("Transmission Coefficient VS E/V0 | V0 = 0.5 and Barrier Width = 1")
+plt.title("Transmission Coefficient VS E/V0 | V0 = 2 and Barrier Width = 3.5")
 plt.savefig(svdir + r'/Transmission_Coefficient_PlotEoverV.pdf')

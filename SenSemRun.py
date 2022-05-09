@@ -33,8 +33,8 @@ Totalx = 1000
 # Speed controls the size of an individual delt...
 #   It's called speed as it should be adjusted to control the speed of the wave packet, and will also be the final
 #value to adjust if the program continuously blows up (slower=better, sometimes)
-definition = 0.1
-speed = 0.005
+definition = 0.04
+speed = 0.0005
 
 
 
@@ -44,7 +44,7 @@ speed = 0.005
      
 
 #Setting up our initial data and space
-sigma = (Totalx*definition)/20 #Wavepacket size
+sigma = (Totalx*definition)/100 #Wavepacket size
 start = (Totalx*definition)/4 #Wavepacket starting placement
 eVmul = 0 #Ignore this
 pause = False #Ignore this
@@ -97,7 +97,7 @@ def unitcalculator(speed, definition, E, Vnaught):
 
 #Setting up animation
 fig = plt.figure()
-ax = plt.axes(xlim=(0, Totalx-1), ylim=(0, 0.5))
+ax = plt.axes(xlim=(0, Totalx-1), ylim=(0, 0.8))
 ln1, = ax.plot([], [], lw=1)
 ln2, = ax.plot([], [], lw=1, color='g')
 
@@ -132,7 +132,7 @@ def animate(j):
     global Transmlist
     global transmitted
     
-    fastfwd = 10
+    
      #allows the animation to be sped up for better viewing. Must be kept an EVEN INTEGER to allow leapfrogging
     if not pause: # allows pausing of the animation at any point for Transmition coefficicent calculation
         if fastfwd == 1:
@@ -267,22 +267,21 @@ fig.canvas.mpl_connect('button_press_event', onClick)
 
 #I know this bottom step makes the use of a function redundant, but it helps my brain organize the code
 Totalx = 1000
-definition = 0.1
-speed = 0.005
-E = 0.2
-Eend = 5
-Vnaught = 2
+
+E = 50
+Eend = 60
+Vnaught = 50
 Transmlist = []
 Elist = []
-Estep = 0.20000000000000000000000000000000000000000
+Estep = 0.5000000000000000000
 Space = zeros(Totalx)
 RealPsi = zeros(Totalx)
 ImPsi = zeros(Totalx)
 Psi = zeros(Totalx)
 V = zeros(Totalx)
 transmitted = 0
-A = ((2/pi)**(1/4))*sqrt(1/(sigma))
-barrierlength = 3.5
+
+barrierlength = 2
 a = barrierlength*(int(1/definition))
 
 svdir = r"/home/pi/Desktop/" + str(datetime.date.today())
@@ -317,14 +316,23 @@ while E < Eend:
         ImPsi[i] = A*sin(k0*i*delx) * exp(-((i*delx)-start)**2/(sigma)**2)
         if i>= blockbeg and i<= blockend:
             V[i] = Vnaught
-
+    TRealPsi = RealPsi.copy()
+    TImPsi = ImPsi.copy()
+    
+    for i in range(Totalx):
+        TotalPsi += (RealPsi[i]**2+ImPsi[i]**2)*delx
+    
+    for i in range(Totalx):
+        RealPsi[i] = TRealPsi[i]/sqrt(TotalPsi)
+        ImPsi[i] = TImPsi[i]/sqrt(TotalPsi)
+    
     def init():
         ln1.set_data(Space, Psi)
         ln2.set_data(Space, V)
         return ln1, ln2, 
 
     pause = False
-    fastfwd = 10
+    fastfwd = 20
 
     anim = animation.FuncAnimation(
         fig, animate, init_func = init, interval=1, frames=int(Totalt/fastfwd), blit=True, repeat = True)
@@ -374,5 +382,5 @@ plt.plot(TestEs, TrueData, "r-", label="Analytical Solution")
 plt.xlabel("E/V0")
 plt.ylabel("T")
 plt.legend(loc="upper left")
-plt.title("Transmission Coefficient VS E/V0 | V0 = 2 and Barrier Width = 3.5")
+plt.title("Transmission Coefficient VS E/V0 | V0 = 50 and Barrier Width = 2")
 plt.savefig(svdir + r'/Transmission_Coefficient_PlotEoverV.pdf')

@@ -304,7 +304,7 @@ while E < Eend:
     E = Primes[5] 
     wavelength = Primes[6]
 
-    extradis = 400
+    extradis = 100
     blockbeg = 600
     blockend = blockbeg + a 
     wavespinsim = (blockend-start+extradis)*delx/k0

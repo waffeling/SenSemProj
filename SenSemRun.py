@@ -312,8 +312,8 @@ while E < Eend:
 
     for i in range(Totalx):
         Space[i] = i
-        RealPsi[i] = A*cos(k0*i*delx) * exp(-((i*delx)-start)**2/(sigma)**2) #turns out k0 must be multiplied by whatever delx you're using 
-        ImPsi[i] = A*sin(k0*i*delx) * exp(-((i*delx)-start)**2/(sigma)**2)
+        RealPsi[i] = cos(k0*i*delx) * exp(-((i*delx)-start)**2/(sigma)**2) #turns out k0 must be multiplied by whatever delx you're using 
+        ImPsi[i] = sin(k0*i*delx) * exp(-((i*delx)-start)**2/(sigma)**2)
         if i>= blockbeg and i<= blockend:
             V[i] = Vnaught
     TRealPsi = RealPsi.copy()

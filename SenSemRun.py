@@ -97,7 +97,7 @@ def unitcalculator(speed, definition, E, Vnaught):
 
 #Setting up animation
 fig = plt.figure()
-ax = plt.axes(xlim=(0, Totalx-1), ylim=(0, 0.8))
+ax = plt.axes(xlim=(0, Totalx-1), ylim=(0, 1))
 ln1, = ax.plot([], [], lw=1)
 ln2, = ax.plot([], [], lw=1, color='g')
 
@@ -268,12 +268,12 @@ fig.canvas.mpl_connect('button_press_event', onClick)
 #I know this bottom step makes the use of a function redundant, but it helps my brain organize the code
 Totalx = 1000
 
-E = 50
-Eend = 60
+E = 35
+Eend = 65
 Vnaught = 50
 Transmlist = []
 Elist = []
-Estep = 0.5000000000000000000
+Estep = int(1)
 Space = zeros(Totalx)
 RealPsi = zeros(Totalx)
 ImPsi = zeros(Totalx)
@@ -380,6 +380,7 @@ fig1 = plt.figure()
 print(Elist)
 plt.plot(Elist, Transmlist, "b-", label="Simulated Data")
 plt.plot(TestEs, TrueData, "r-", label="Analytical Solution")
+plt.xlim(E, 70)
 plt.xlabel("E/V0")
 plt.ylabel("T")
 plt.legend(loc="upper left")

@@ -277,6 +277,7 @@ Estep = 0.5000000000000000000
 Space = zeros(Totalx)
 RealPsi = zeros(Totalx)
 ImPsi = zeros(Totalx)
+TotalPsi = 0
 Psi = zeros(Totalx)
 V = zeros(Totalx)
 transmitted = 0

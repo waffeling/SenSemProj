@@ -323,6 +323,12 @@ while E < Eend:
     for i in range(Totalx):
         TotalPsi += (RealPsi[i]**2+ImPsi[i]**2)*delx
     
+    TotalPsi = 0
+    for i in range(Totalx):
+    TotalPsi += (RealPsi[i]**2+ImPsi[i]**2)*delx
+    print(TotalPsi)
+    
+    
     for i in range(Totalx):
         RealPsi[i] = TRealPsi[i]/sqrt(TotalPsi)
         ImPsi[i] = TImPsi[i]/sqrt(TotalPsi)
@@ -331,7 +337,10 @@ while E < Eend:
         ln1.set_data(Space, Psi)
         ln2.set_data(Space, V)
         return ln1, ln2, 
-
+    
+    if TotalPsi > 1.005 or TotalPsi < 0.9995:
+        break
+    
     pause = False
     fastfwd = 20
 

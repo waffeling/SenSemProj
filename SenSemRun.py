@@ -323,15 +323,16 @@ while E < Eend:
     for i in range(Totalx):
         TotalPsi += (RealPsi[i]**2+ImPsi[i]**2)*delx
     
+    
+    for i in range(Totalx):
+        RealPsi[i] = TRealPsi[i]/sqrt(TotalPsi)
+        ImPsi[i] = TImPsi[i]/sqrt(TotalPsi)
+        
     TotalPsi = 0
     for i in range(Totalx):
         TotalPsi += (RealPsi[i]**2+ImPsi[i]**2)*delx
     print(TotalPsi)
     
-    
-    for i in range(Totalx):
-        RealPsi[i] = TRealPsi[i]/sqrt(TotalPsi)
-        ImPsi[i] = TImPsi[i]/sqrt(TotalPsi)
     
     def init():
         ln1.set_data(Space, Psi)

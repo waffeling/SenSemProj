@@ -325,7 +325,7 @@ while E < Eend:
     
     TotalPsi = 0
     for i in range(Totalx):
-    TotalPsi += (RealPsi[i]**2+ImPsi[i]**2)*delx
+        TotalPsi += (RealPsi[i]**2+ImPsi[i]**2)*delx
     print(TotalPsi)
     
     

@@ -339,8 +339,6 @@ while E < Eend:
         ln2.set_data(Space, V)
         return ln1, ln2, 
     
-    if TotalPsi > 1.005 or TotalPsi < 0.9995:
-        break
     
     pause = False
     fastfwd = 20
@@ -357,7 +355,7 @@ while E < Eend:
 
     
 TrueData = zeros(100)
-TestEs = linspace(0, Eend, 100)
+TestEs = linspace(100, Eend, 100)
 
 u = 0
 
@@ -390,9 +388,9 @@ fig1 = plt.figure()
 print(Elist)
 plt.plot(Elist, Transmlist, "b-", label="Simulated Data")
 plt.plot(TestEs, TrueData, "r-", label="Analytical Solution")
-plt.xlim(35, 65)
+plt.xlim(100, 110)
 plt.xlabel("E/V0")
 plt.ylabel("T")
 plt.legend(loc="upper left")
-plt.title("Transmission Coefficient VS E/V0 | V0 = 50 and Barrier Width = 2")
+plt.title("Transmission Coefficient VS E/V0 | V0 = 100 and Barrier Width = 1.5")
 plt.savefig(svdir + r'/Transmission_Coefficient_PlotEoverV.pdf')

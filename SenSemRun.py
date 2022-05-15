@@ -33,8 +33,8 @@ Totalx = 1000
 # Speed controls the size of an individual delt...
 #   It's called speed as it should be adjusted to control the speed of the wave packet, and will also be the final
 #value to adjust if the program continuously blows up (slower=better, sometimes)
-definition = 0.04
-speed = 0.0005
+definition = 0.02
+speed = 0.0002
 
 
 
@@ -44,7 +44,7 @@ speed = 0.0005
      
 
 #Setting up our initial data and space
-sigma = (Totalx*definition)/100 #Wavepacket size
+sigma = (Totalx*definition)/20 #Wavepacket size
 start = (Totalx*definition)/4 #Wavepacket starting placement
 eVmul = 0 #Ignore this
 pause = False #Ignore this
@@ -268,12 +268,12 @@ fig.canvas.mpl_connect('button_press_event', onClick)
 #I know this bottom step makes the use of a function redundant, but it helps my brain organize the code
 Totalx = 1000
 
-E = 35
-Eend = 65
-Vnaught = 50
+E = 100
+Eend = 110
+Vnaught = 100
 Transmlist = []
 Elist = []
-Estep = int(1)
+Estep = 0.50000
 Space = zeros(Totalx)
 RealPsi = zeros(Totalx)
 ImPsi = zeros(Totalx)
@@ -282,7 +282,7 @@ Psi = zeros(Totalx)
 V = zeros(Totalx)
 transmitted = 0
 
-barrierlength = 2
+barrierlength = 1.5
 a = barrierlength*(int(1/definition))
 
 svdir = r"/home/pi/Desktop/" + str(datetime.date.today())
@@ -304,8 +304,8 @@ while E < Eend:
     E = Primes[5] 
     wavelength = Primes[6]
 
-    extradis = 100
-    blockbeg = 600
+    extradis = 400
+    blockbeg = 500
     blockend = blockbeg + a 
     wavespinsim = (blockend-start+extradis)*delx/k0
     #This is the total number of DISCRETE steps allowed in t 
